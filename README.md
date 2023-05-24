@@ -1,0 +1,2 @@
+# hashching-automation-scripts
+bidding
