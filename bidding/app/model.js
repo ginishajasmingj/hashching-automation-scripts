@@ -36,6 +36,10 @@ const getUserDetails = async (req, res) => {
     let qry = '';
     let qryRes = '';
 
+    // // Create column in bidlead history table
+    // qry = `alter table bid_lead_history add bid_type varchar(45) null`;
+    // qryRes = await executeQuery(qry, []);
+
     // Fetch all user IDs from the bidlead history table
     qry = `SELECT bid_lead_history.id FROM bid_lead_history WHERE bid_type IS NULL`;
     qryRes = await executeQuery(qry, []);
