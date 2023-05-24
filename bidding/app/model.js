@@ -1,11 +1,6 @@
 const mysql = require('mysql');
 const express = require('express');
 const userRouter = express.Router();
-const { get, first } = require('lodash');
-
-let _get = (object, path, defaultValue = '') => get(object, path, defaultValue)
-
-let _first = (array) => first(array);
 
 var connection = mysql.createConnection({
 
@@ -37,18 +32,18 @@ const executeQuery = (query, parameters) => {
 const getUserDetails = async (req, res) => {
   try {
     let responseValue = {};
-    let bidlead_history_id = [];
+    let bidLeadHistory_id = [];
     let qry = '';
     let qryRes = '';
 
     // Fetch all user IDs from the bidlead history table
     qry = `SELECT bid_lead_history.id FROM bid_lead_history WHERE bid_type IS NULL`;
     qryRes = await executeQuery(qry, []);
-    bidlead_history_id.push(qryRes)
-    bidlead_history_id = Object.values(qryRes)
-    console.log("[getUserDetails] -->bidlead_history_id",bidlead_history_id);
+    bidLeadHistory_id.push(qryRes)
+    bidLeadHistory_id = Object.values(qryRes)
+    console.log("[getUserDetails] -->bidLeadHistory_id",bidLeadHistory_id);
 
-    bidlead_history_id.forEach(async (data) => {
+    bidLeadHistory_id.forEach(async (data) => {
       let qry = '';
       let qryRes = '';
       qry = `update bid_lead_history set bid_type = 'manual' where bid_lead_history.id = '${data.id}'`;
@@ -57,7 +52,7 @@ const getUserDetails = async (req, res) => {
 
     responseValue = {
       success: true,
-      data: bidlead_history_id
+      data: bidLeadHistory_id
     }
 
     return await res.status(200).json({
